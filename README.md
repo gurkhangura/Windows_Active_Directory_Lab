@@ -1,5 +1,6 @@
 # Windows_Active_Directory_Lab
 Windows Server 2025 Active Directory homelab built with Hyper-V to practice helpdesk and junior system administration tasks including AD DS, DNS, users, groups, OUs, Group Policy, file shares, and domain-joined Windows clients.
+
 ## Skills Demonstrated
 
 - Hyper-V virtual machine deployment
@@ -40,7 +41,7 @@ Windows Server 2025 Active Directory homelab built with Hyper-V to practice help
 
 ![Hyper-V VMs Running](screenshots/01_HyperV_VMs_Running.png)
 
-I created two virtual machines in Hyper-V to simulate a small Windows business environment. DC01 was configured as the domain controller and DNS server, while CLIENT01 was used as a Windows 11 workstation for domain login testing.
+I created two virtual machines in Hyper-V to simulate a small Windows business environment. DC01 was configured as the domain controller and DNS server. CLIENT01 was used as a Windows 11 workstation to test domain joining and domain user login.
 
 ## Internal Virtual Switch
 
@@ -66,123 +67,126 @@ I assigned DC01 a static IP address of `192.168.50.10`. Since DC01 is the domain
 
 I created a custom Active Directory OU structure to organize users, computers, groups, servers, and disabled accounts.
 
-```text
-khanguralab.local
-└── KhanguraLab
-    ├── Computers
-    ├── Disabled Users
-    ├── Groups
-    ├── Servers
-    └── Users
-        ├── Finance
-        ├── HR
-        ├── IT
-        └── Sales
-Department Users
+OU structure:
 
+- khanguralab.local
+  - KhanguraLab
+    - Computers
+    - Disabled Users
+    - Groups
+    - Servers
+    - Users
+      - Finance
+      - HR
+      - IT
+      - Sales
 
+## Department Users
 
+![AD Department Users](screenshots/06_AD_Department_Users.png)
 
 I created sample users and placed them into department-based OUs.
 
-User	Department
-Peyton Manning	Finance
-Bruce Wayne	HR
-James Bond	IT
-Master Chief	Sales
-Security Groups
+| User | Department |
+|---|---|
+| Peyton Manning | Finance |
+| Bruce Wayne | HR |
+| James Bond | IT |
+| Master Chief | Sales |
 
+## Security Groups
 
-
+![AD Security Groups](screenshots/07_AD_Security_Groups.png)
 
 I created department-based security groups and file share access groups to simulate role-based access control.
 
-Group	Purpose
-Finance_Users	Finance department users
-HR_Users	HR department users
-IT_Admins	IT administrative users
-Sales_Users	Sales department users
-FileShare_Finance_Read	Read access to Finance share
-FileShare_Finance_Modify	Modify access to Finance share
-FileShare_HR_Read	Read access to HR share
-FileShare_HR_Modify	Modify access to HR share
-FileShare_IT_Read	Read access to IT share
-FileShare_IT_Modify	Modify access to IT share
-FileShare_Sales_Read	Read access to Sales share
-FileShare_Sales_Modify	Modify access to Sales share
-User Group Membership
+| Group | Purpose |
+|---|---|
+| Finance_Users | Finance department users |
+| HR_Users | HR department users |
+| IT_Admins | IT administrative users |
+| Sales_Users | Sales department users |
+| FileShare_Finance_Read | Read access to Finance share |
+| FileShare_Finance_Modify | Modify access to Finance share |
+| FileShare_HR_Read | Read access to HR share |
+| FileShare_HR_Modify | Modify access to HR share |
+| FileShare_IT_Read | Read access to IT share |
+| FileShare_IT_Modify | Modify access to IT share |
+| FileShare_Sales_Read | Read access to Sales share |
+| FileShare_Sales_Modify | Modify access to Sales share |
 
+## User Group Membership
 
+![User Group Membership](screenshots/08_User_Group_Membership.png)
 
+I assigned the Sales user to the `Sales_Users` group and the `FileShare_Sales_Modify` group. This demonstrates how access can be controlled through Active Directory group membership instead of assigning permissions directly to individual users.
 
-I assigned the Sales user to the Sales_Users group and the FileShare_Sales_Modify group. This demonstrates how access can be controlled through Active Directory group membership.
+## Domain-Joined Computer Object
 
-Domain-Joined Computer Object
+![CLIENT01 Computer Object](screenshots/09_CLIENT01_Computer_Object.png)
 
+After joining CLIENT01 to the domain, the computer object appeared in Active Directory. This confirms that the Windows 11 workstation successfully joined `khanguralab.local`.
 
+## CLIENT01 Domain Join Verification
 
+![CLIENT01 Domain Joined](screenshots/10_CLIENT01_Domain_Joined.png)
 
-After joining CLIENT01 to the domain, the computer object appeared in Active Directory. This confirms that the Windows 11 workstation successfully joined khanguralab.local.
+I verified the domain join from CLIENT01 by checking the system information page. The full device name shows `CLIENT01.khanguralab.local`.
 
-CLIENT01 Domain Join Verification
+## Domain User Authentication
 
+![Domain User Whoami](screenshots/11_Domain_User_Whoami.png)
 
+I logged into CLIENT01 using a domain account and ran the `whoami` command to verify the active user session.
 
+Command used:
 
-I verified the domain join from CLIENT01 by checking the system information page. The full device name shows CLIENT01.khanguralab.local.
+`whoami`
 
-Domain User Authentication
+Example result:
 
-
-
-
-I logged into CLIENT01 using a domain account and ran the whoami command to verify the active user session.
-
-whoami
-
-Example output:
-
-khanguralab\mchief
+`khanguralab\mchief`
 
 This confirms that domain authentication is working.
 
-CLIENT01 to DC01 Connectivity Test
+## CLIENT01 to DC01 Connectivity Test
 
+![CLIENT01 Ping DC01](screenshots/12_CLIENT01_Ping_DC01.png)
 
+I tested network connectivity from CLIENT01 to DC01 using the `ping` command.
 
+Command used:
 
-I tested network connectivity from CLIENT01 to DC01 using the ping command.
-
-ping 192.168.50.10
+`ping 192.168.50.10`
 
 The successful replies confirm that CLIENT01 can communicate with the domain controller over the internal virtual network.
 
-Troubleshooting Commands Used
+## Troubleshooting Commands Used
 
-During the lab, I used the following commands to verify network and domain functionality:
+During the lab, I used these commands to verify network and domain functionality:
 
-ipconfig
-ping 192.168.50.10
-nslookup khanguralab.local
-whoami
+- `ipconfig`
+- `ping 192.168.50.10`
+- `nslookup khanguralab.local`
+- `whoami`
 
 These commands helped confirm IP configuration, domain controller connectivity, DNS resolution, and domain user authentication.
 
-Summary
+## Summary
 
 This lab demonstrates a basic Windows Active Directory environment built from scratch. I configured a domain controller, DNS, an internal Hyper-V network, department-based OUs, Active Directory users, security groups, and a Windows 11 domain-joined client.
 
-The project helped me practice real help desk and junior system administrator skills, including user management, domain troubleshooting, network testing, and documentation.
+This project helped me practice real help desk and junior system administrator skills, including user management, domain troubleshooting, network testing, and documentation.
 
-Next Steps
+## Next Steps
 
 Planned improvements for this lab include:
 
-Configure Group Policy Objects
-Create mapped network drives
-Configure department file shares
-Apply NTFS permissions using security groups
-Simulate password reset and account lockout tickets
-Automate user creation with PowerShell
-Add a dedicated file server named FS01
-Document additional help desk troubleshooting scenarios
+- Configure Group Policy Objects
+- Create mapped network drives
+- Configure department file shares
+- Apply NTFS permissions using security groups
+- Simulate password reset and account lockout tickets
+- Automate user creation with PowerShell
+- Add a dedicated file server named FS01
+- Document additional help desk troubleshooting scenarios
