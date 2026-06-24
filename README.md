@@ -39,7 +39,7 @@ Windows Server 2025 Active Directory homelab built with Hyper-V to practice help
 
 ## Hyper-V Virtual Machines
 
-![Hyper-V VMs Running](screenshots/01_HyperV_VMs_Running.png)
+![Hyper-V VMs Running](screenshots/01_HyperV_VMs_Running)
 
 I created two virtual machines in Hyper-V to simulate a small Windows business environment. DC01 was configured as the domain controller and DNS server. CLIENT01 was used as a Windows 11 workstation to test domain joining and domain user login.
 
