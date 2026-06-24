@@ -39,31 +39,31 @@ Windows Server 2025 Active Directory homelab built with Hyper-V to practice help
 
 ## Hyper-V Virtual Machines
 
-![Hyper-V VMs Running](screenshots/01_HyperV_VMs_Running.png)
+![Hyper-V VMs Running](01_HyperV_VMs_Running.png)
 
 I created two virtual machines in Hyper-V to simulate a small Windows business environment. DC01 was configured as the domain controller and DNS server. CLIENT01 was used as a Windows 11 workstation to test domain joining and domain user login.
 
 ## Internal Virtual Switch
 
-![Virtual Switch Internal Network](screenshots/02_Virtual_Switch_Internal_Network.png)
+![Virtual Switch Internal Network](02_Virtual_Switch_Internal_Network.png)
 
 I created an internal Hyper-V switch named `AD-Lab-Internal` so the virtual machines could communicate with each other on an isolated lab network.
 
 ## Domain Controller Server Roles
 
-![DC01 Server Manager Roles](screenshots/03_DC01_Server_Manager_Roles.png)
+![DC01 Server Manager Roles](03_DC01_Server_Manager_Roles.png)
 
 I installed Active Directory Domain Services and DNS on DC01. These roles allow DC01 to manage domain authentication and internal name resolution for `khanguralab.local`.
 
 ## DC01 Static IP Configuration
 
-![DC01 Static IP](screenshots/04_DC01_Static_IP.png)
+![DC01 Static IP](04_DC01_Static_IP.png)
 
 I assigned DC01 a static IP address of `192.168.50.10`. Since DC01 is the domain controller and DNS server, it needs a consistent IP address for client machines to find it.
 
 ## Active Directory OU Structure
 
-![AD OU Structure](screenshots/05_AD_OU_Structure.png)
+![AD OU Structure](05_AD_OU_Structure.png)
 
 I created a custom Active Directory OU structure to organize users, computers, groups, servers, and disabled accounts.
 
@@ -83,7 +83,7 @@ OU structure:
 
 ## Department Users
 
-![AD Department Users](screenshots/06_AD_Department_Users.png)
+![AD Department Users](06_AD_Department_Users.png)
 
 I created sample users and placed them into department-based OUs.
 
@@ -96,7 +96,7 @@ I created sample users and placed them into department-based OUs.
 
 ## Security Groups
 
-![AD Security Groups](screenshots/07_AD_Security_Groups.png)
+![AD Security Groups](07_AD_Security_Groups.png)
 
 I created department-based security groups and file share access groups to simulate role-based access control.
 
@@ -117,25 +117,25 @@ I created department-based security groups and file share access groups to simul
 
 ## User Group Membership
 
-![User Group Membership](screenshots/08_User_Group_Membership.png)
+![User Group Membership](08_User_Group_Membership.png)
 
 I assigned the Sales user to the `Sales_Users` group and the `FileShare_Sales_Modify` group. This demonstrates how access can be controlled through Active Directory group membership instead of assigning permissions directly to individual users.
 
 ## Domain-Joined Computer Object
 
-![CLIENT01 Computer Object](screenshots/09_CLIENT01_Computer_Object.png)
+![CLIENT01 Computer Object](09_CLIENT01_Computer_Object.png)
 
 After joining CLIENT01 to the domain, the computer object appeared in Active Directory. This confirms that the Windows 11 workstation successfully joined `khanguralab.local`.
 
 ## CLIENT01 Domain Join Verification
 
-![CLIENT01 Domain Joined](screenshots/10_CLIENT01_Domain_Joined.png)
+![CLIENT01 Domain Joined](10_CLIENT01_Domain_Joined.png)
 
 I verified the domain join from CLIENT01 by checking the system information page. The full device name shows `CLIENT01.khanguralab.local`.
 
 ## Domain User Authentication
 
-![Domain User Whoami](screenshots/11_Domain_User_Whoami.png)
+![Domain User Whoami](11_Domain_User_Whoami.png)
 
 I logged into CLIENT01 using a domain account and ran the `whoami` command to verify the active user session.
 
@@ -151,7 +151,7 @@ This confirms that domain authentication is working.
 
 ## CLIENT01 to DC01 Connectivity Test
 
-![CLIENT01 Ping DC01](screenshots/12_CLIENT01_Ping_DC01.png)
+![CLIENT01 Ping DC01](12_CLIENT01_Ping_DC01.png)
 
 I tested network connectivity from CLIENT01 to DC01 using the `ping` command.
 
